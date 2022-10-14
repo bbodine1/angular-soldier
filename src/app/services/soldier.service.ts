@@ -1,29 +1,33 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-import { Soldier } from '../models/soldier';
-import { MessageService } from '../services/message.service';
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { BehaviorSubject, Observable, of } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
+import { Soldier } from "../models/soldier";
+import { MessageService } from "../services/message.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root"
 })
 export class SoldierService {
-  private soldiersUrl = 'api/soldiers'; // URL to web api
+  private soldiersUrl = "api/soldiers"; // URL to web api
+  private currentSoldierSubject$ = new BehaviorSubject<Soldier>(undefined);
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    headers: new HttpHeaders({ "Content-Type": "application/json" })
   };
 
   constructor(
     private http: HttpClient,
+    private route: ActivatedRoute,
     private messageService: MessageService
   ) {}
 
   getSoldiers(): Observable<Soldier[]> {
     return this.http.get<Soldier[]>(this.soldiersUrl).pipe(
-      tap((_) => this.log('fetched soldiers')),
-      catchError(this.handleError<Soldier[]>('getSoldiers', []))
+      tap((_) => this.log("fetched soldiers")),
+      tap(() => this.currentSoldierSubject$.next(undefined)),
+      catchError(this.handleError<Soldier[]>("getSoldiers", []))
     );
   }
 
@@ -32,8 +36,15 @@ export class SoldierService {
     const url = `${this.soldiersUrl}/${id}`;
     return this.http.get<Soldier>(url).pipe(
       tap((_) => this.log(`fetched soldier id=${id}`)),
+      tap((soldier) => {
+        this.currentSoldierSubject$.next(soldier);
+      }),
       catchError(this.handleError<Soldier>(`getSoldier id=${id}`))
     );
+  }
+
+  getCurrentSoldier$(): Observable<Soldier> {
+    return this.currentSoldierSubject$.asObservable();
   }
 
   /** Log a SoldierService message with the MessageService */
@@ -48,7 +59,7 @@ export class SoldierService {
    * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
-  private handleError<T>(operation = 'operation', result?: T) {
+  private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
@@ -65,7 +76,7 @@ export class SoldierService {
   updateSoldier(soldier: Soldier): Observable<any> {
     return this.http.put(this.soldiersUrl, soldier, this.httpOptions).pipe(
       tap((_) => this.log(`updated soldier id=${soldier.id}`)),
-      catchError(this.handleError<any>('updateSoldier'))
+      catchError(this.handleError<any>("updateSoldier"))
     );
   }
 
@@ -77,7 +88,7 @@ export class SoldierService {
         tap((newSoldier: Soldier) =>
           this.log(`added soldier w/ id=${newSoldier.id}`)
         ),
-        catchError(this.handleError<Soldier>('addSoldier'))
+        catchError(this.handleError<Soldier>("addSoldier"))
       );
   }
 
@@ -87,7 +98,7 @@ export class SoldierService {
 
     return this.http.delete<Soldier>(url, this.httpOptions).pipe(
       tap((_) => this.log(`deleted soldier id=${id}`)),
-      catchError(this.handleError<Soldier>('deleteSoldier'))
+      catchError(this.handleError<Soldier>("deleteSoldier"))
     );
   }
 
@@ -105,7 +116,7 @@ export class SoldierService {
             ? this.log(`found soldiers matching "${term}"`)
             : this.log(`no soldiers matching "${term}"`)
         ),
-        catchError(this.handleError<Soldier[]>('searchSoldiers', []))
+        catchError(this.handleError<Soldier[]>("searchSoldiers", []))
       );
   }
 }
