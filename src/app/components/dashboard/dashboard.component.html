@@ -1,0 +1,19 @@
+<div>
+  <h2>Dashboard View</h2>
+
+  <div class="soldiers-menu">
+    <h2>Four Soldiers from Our List</h2>
+
+    <div class="soldiers-menu-items">
+      <a
+        *ngFor="let soldier of soldiers"
+        routerLink="/soldier/{{ soldier.id }}"
+      >
+        {{ soldier.rank }}<br />
+        {{ soldier.lastname }}
+      </a>
+    </div>
+  </div>
+
+  <app-soldier-search></app-soldier-search>
+</div>

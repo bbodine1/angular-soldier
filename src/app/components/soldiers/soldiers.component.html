@@ -1,0 +1,31 @@
+<ul class="soldiers">
+  <li *ngFor="let soldier of soldiers">
+    <a routerLink="/soldier/{{ soldier.id }}">
+      <span class="badge">{{ soldier.id }}</span>
+      {{ soldier.lastname }}, {{ soldier.firstname }} {{ soldier.rank }}
+    </a>
+
+    <button
+      type="button"
+      class="delete"
+      title="delete soldier"
+      (click)="delete(soldier)"
+    >
+      x
+    </button>
+  </li>
+</ul>
+
+<div class="new">
+  <label for="new-soldier">Soldier Last name: </label>
+  <input id="new-soldier" #soldierName /><br />
+
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button
+    type="button"
+    class="add-button"
+    (click)="add(soldierName.value); soldierName.value = ''"
+  >
+    Add Soldier
+  </button>
+</div>

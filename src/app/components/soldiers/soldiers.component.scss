@@ -1,0 +1,112 @@
+/* SoldiersComponent's private CSS styles */
+.soldiers {
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 300px;
+    min-height: 352px;
+  }
+  
+  input {
+    display: block;
+    width: 100%;
+    padding: .5rem;
+    margin: 1rem 0;
+    max-width: 600px;
+  }
+  
+  .soldiers li {
+    display: grid;
+    position: relative;
+    cursor: pointer;
+    width: 250px;
+    height: 32px;
+    margin-bottom: 8px;
+  }
+  
+  .soldiers li:hover {
+    transform: translateX(1px);
+  }
+  
+  .soldiers a {
+    display: flex;
+    color: #333;
+    align-items: center;
+    text-decoration: none;
+    background-color: #EEE;
+    gap: 8px;
+    border-radius: 4px;
+  }
+  
+  .soldiers a:hover {
+    color: #2c3a41;
+    background-color: #e6e6e6;
+  }
+  
+  .soldiers a:active {
+    background-color: #525252;
+    color: #fafafa;
+  }
+  
+  .soldiers .badge {
+    display: grid;
+    place-items: center;
+    font-size: small;
+    background-color: #405061;
+    color: white;
+    border-radius: 4px 0 0 4px;
+    height: 32px;
+    width: 32px;
+  }
+  
+  button.delete {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background-color: white;
+    color:  #525252;
+    font-size: 16px;
+    margin: 0;
+    padding: 1px 10px 3px 10px;
+  }
+  
+  button.delete:hover {
+    background-color: #525252;
+    color: white;
+  }
+  
+  .new {
+    box-shadow: 0 0px 0px 1px rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    max-width: 600px;
+    margin-bottom: 32px;
+  }
+  
+  .add-button {
+    font-size: 16px;
+  }
+  
+  .add-button:hover {
+    color: white;
+    background-color: #42545C;
+  }
+  
+  button {
+    color: rgb(30, 30, 30);
+    background-color: #a2a2a2 !important;
+    margin-bottom: 12px;
+    padding: 1rem;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  button:hover {
+    color: white;
+    background-color: #42545C;
+  }
+  button:disabled {
+    background-color: #eee;
+    color: #ccc;
+    cursor: auto;
+  }
+  

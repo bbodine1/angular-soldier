@@ -1,0 +1,35 @@
+<div *ngIf="soldier">
+  <h2>{{ soldier.lastname | uppercase }} Details</h2>
+  <div>
+    <ul>
+      <li>id: {{ soldier.id }}</li>
+      <li>Last Name: {{ soldier.lastname }}</li>
+      <li>First Name: {{ soldier.firstname }}</li>
+      <li>Rank: {{ soldier.rank }}</li>
+    </ul>
+  </div>
+  <div>
+    <label for="soldier-lastname">Soldier Last Name: </label>
+    <input
+      id="soldier-lastname"
+      [(ngModel)]="soldier.lastname"
+      placeholder="last name"
+    /><br />
+    <label for="soldier-firstname">Soldier First Name: </label>
+    <input
+      id="soldier-firstname"
+      [(ngModel)]="soldier.firstname"
+      placeholder="first name"
+    /><br />
+    <label for="soldier-rank">Soldier Rank: </label>
+    <input
+      id="soldier-rank"
+      [(ngModel)]="soldier.rank"
+      placeholder="rank"
+    /><br />
+  </div>
+</div>
+
+<button type="button" (click)="goBack()">go back</button>
+
+<button type="button" (click)="save()">save</button>

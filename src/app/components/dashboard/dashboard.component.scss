@@ -1,0 +1,35 @@
+/* DashboardComponent's private CSS styles */
+
+h2 {
+  text-align: center;
+}
+
+.soldiers-menu {
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.soldiers-menu-items {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, 1fr);
+  width: 250px;
+  min-height: 160px;
+}
+
+a {
+  display: block;
+  background-color: #3f525c;
+  border-radius: 2px;
+  padding: 1rem;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #fff;
+  text-align: center;
+}
+
+a:hover {
+  background-color: #000;
+}

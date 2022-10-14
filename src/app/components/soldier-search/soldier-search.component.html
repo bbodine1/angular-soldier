@@ -1,0 +1,14 @@
+<div id="search-component">
+  <label for="search-box"
+    >Soldier Search <small>(Last Name Search Only)</small></label
+  >
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+
+  <ul class="search-result">
+    <li *ngFor="let soldier of soldiers$ | async">
+      <a routerLink="/soldier/{{ soldier.id }}">
+        {{ soldier.lastname }}
+      </a>
+    </li>
+  </ul>
+</div>
